@@ -73,8 +73,8 @@ const IniciarPartida = () => {
           })}
         </div>
         <div className="right">
-          {arrayOfButtons.map((button, index) => {
-            return renderNumberButton(index + 1);
+          {arrayOfButtons.map((button) => {
+            return renderNumberButton(button);
           })}
         </div>
       </div>
