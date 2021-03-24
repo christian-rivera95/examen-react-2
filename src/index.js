@@ -23,10 +23,8 @@ const IniciarPartida = () => {
   }, []);
 
   useEffect(() => {
-    let suma = 0;
-    sum.map((number) => {
-      suma += number;
-    });
+    const suma = utils.Suma(sum);
+
     if (suma > max) {
       setStatus("malo");
     } else if (suma === max) {
