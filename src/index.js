@@ -10,6 +10,7 @@ const IniciarPartida = () => {
   const [sum, setSum] = useState([]);
   const [max, setMax] = useState();
   const [status, setStatus] = useState("number");
+  const arrayOfButtons = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
   const [timer, setTimer] = useState(10);
 
@@ -44,6 +45,18 @@ const IniciarPartida = () => {
     return <Star key={`star-${index}`} />;
   }
 
+  function renderNumberButton(index) {
+    return (
+      <NumberButton
+        key={`number-${index}`}
+        number={index}
+        addNumber={addNumber}
+        status={status}
+        selectedButtons={sum}
+      />
+    );
+  }
+
   function addNumber(number) {
     setSum((oldArray) => [...oldArray, number]);
   }
@@ -60,60 +73,9 @@ const IniciarPartida = () => {
           })}
         </div>
         <div className="right">
-          <NumberButton
-            number={1}
-            addNumber={addNumber}
-            status={status}
-            selectedButtons={sum}
-          />
-          <NumberButton
-            number={2}
-            addNumber={addNumber}
-            status={status}
-            selectedButtons={sum}
-          />
-          <NumberButton
-            number={3}
-            addNumber={addNumber}
-            status={status}
-            selectedButtons={sum}
-          />
-          <NumberButton
-            number={4}
-            addNumber={addNumber}
-            status={status}
-            selectedButtons={sum}
-          />
-          <NumberButton
-            number={5}
-            addNumber={addNumber}
-            status={status}
-            selectedButtons={sum}
-          />
-          <NumberButton
-            number={6}
-            addNumber={addNumber}
-            status={status}
-            selectedButtons={sum}
-          />
-          <NumberButton
-            number={7}
-            addNumber={addNumber}
-            status={status}
-            selectedButtons={sum}
-          />
-          <NumberButton
-            number={8}
-            addNumber={addNumber}
-            status={status}
-            selectedButtons={sum}
-          />
-          <NumberButton
-            number={9}
-            addNumber={addNumber}
-            status={status}
-            selectedButtons={sum}
-          />
+          {arrayOfButtons.map((button, index) => {
+            return renderNumberButton(index + 1);
+          })}
         </div>
       </div>
       <div className="timer">Tiempo restante: {timer}</div>

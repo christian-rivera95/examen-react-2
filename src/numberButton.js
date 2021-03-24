@@ -5,14 +5,6 @@ export default function NumberButton(props) {
   const [clicked, setClicked] = useState(false);
   const [Class, setClass] = useState(status);
 
-  // useEffect(() => {
-  //   const found = selectedButtons.find((element) => (element = number));
-  //   console.log(found);
-  //   if (found) {
-  //     setClass(status);
-  //   }
-  // }, [selectedButtons, number, status]);
-
   useEffect(() => {
     const found = selectedButtons.find((element) => element === number);
     if (number === found) {
@@ -20,15 +12,18 @@ export default function NumberButton(props) {
     }
   }, [number, selectedButtons, status]);
 
-  function onClick() {
-    setClicked(!clicked);
-    if (!clicked) {
+  useEffect(() => {
+    const found = selectedButtons.find((element) => element === number);
+    if (clicked || found) {
       setClass("candidato");
     } else {
       setClass("number");
     }
+  }, [clicked, number, selectedButtons]);
+
+  function onClick() {
     addNumber(number);
-    setClass(status);
+    setClicked(!clicked);
   }
 
   return (
