@@ -11,8 +11,10 @@ const IniciarPartida = () => {
   const [max, setMax] = useState();
   const [status, setStatus] = useState("number");
   const arrayOfButtons = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+  const [gameOver, setGameOver] = useState(false);
+  const [gameWon, setGameWon] = useState(false);
 
-  const [timer, setTimer] = useState(10);
+  const [timer, setTimer] = useState(15);
 
   useEffect(() => {
     const random = utils.Random(1, 9);
@@ -35,12 +37,17 @@ const IniciarPartida = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       if (timer > 0) setTimer(timer - 1);
+      else setGameOver(true);
     }, 1000);
     return () => clearInterval(interval);
   }, [timer]);
 
   function renderStars(index) {
     return <Star key={`star-${index}`} />;
+  }
+
+  function restartGame() {
+    window.location.reload(false);
   }
 
   function renderNumberButton(index) {
@@ -66,9 +73,21 @@ const IniciarPartida = () => {
       </div>
       <div className="body">
         <div className="left">
-          {stars.map((star, index) => {
-            return renderStars(index);
-          })}
+          {!gameOver ? (
+            stars.map((star, index) => {
+              return renderStars(index);
+            })
+          ) : gameWon ? (
+            <h1 className="won-game">
+              Bien! <br />
+              <button onClick={() => restartGame()}>Jugar de nuevo</button>
+            </h1>
+          ) : (
+            <h1 className="game-over">
+              Has perdido...{" "}
+              <button onClick={() => restartGame()}>Jugar de nuevo</button>
+            </h1>
+          )}
         </div>
         <div className="right">
           {arrayOfButtons.map((button) => {
@@ -80,14 +99,6 @@ const IniciarPartida = () => {
     </div>
   );
 };
-
-// Color Theme
-// const colores = {
-//   disponible: "lightgray",
-//   usado: "lightgreen",
-//   malo: "lightcoral",
-//   candidato: "deepskyblue",
-// };
 
 // Calculos
 const utils = {

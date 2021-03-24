@@ -72,15 +72,6 @@
   font-size: 25px;
 }
 
-/* .number:hover {
-  background-color: darkolivegreen;
-  border: thin solid #ddd;
-  width: 45px;
-  height: 45px;
-  margin: 10px;
-  font-size: 25px;
-} */
-
 .number:focus,
 .number:active {
   outline: none;
@@ -91,6 +82,14 @@
   color: #666;
   margin-top: 3px;
   margin-left: 3px;
+}
+
+.game-over {
+  color: red;
+}
+
+.won-game {
+  color: greenyellow;
 }
 
 .game-done .message {
