@@ -10,7 +10,7 @@ const IniciarPartida = () => {
   const [sum, setSum] = useState([]);
   const [max, setMax] = useState();
   const [status, setStatus] = useState("number");
-  const arrayOfButtons = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+  const arrayOfButtons = utils.Rango(1, 9);
   const [gameOver, setGameOver] = useState(false);
   const [gameWon, setGameWon] = useState(false);
 

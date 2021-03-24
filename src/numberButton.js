@@ -14,12 +14,16 @@ export default function NumberButton(props) {
 
   useEffect(() => {
     const found = selectedButtons.find((element) => element === number);
-    if (clicked || found) {
+    if (clicked && found) {
       setClass("candidato");
     } else {
       setClass("number");
     }
   }, [clicked, number, selectedButtons]);
+
+  useEffect(() => {
+    console.log(clicked);
+  }, [clicked]);
 
   function onClick() {
     addNumber(number);
