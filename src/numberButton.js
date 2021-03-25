@@ -22,6 +22,7 @@ export default function NumberButton(props) {
     if (number === found) {
       setClass(status);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [number, selectedButtons, status, Class]);
 
   useEffect(() => {

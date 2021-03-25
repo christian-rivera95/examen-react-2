@@ -13,7 +13,7 @@ const IniciarPartida = () => {
   const arrayOfButtons = utils.Rango(1, 9);
   const [gameOver, setGameOver] = useState(false);
   const [gameWon, setGameWon] = useState(false);
-  const [usados, setUsados] = useState([]);
+  const [usados] = useState([]);
 
   const [timer, setTimer] = useState(15);
 
@@ -36,6 +36,7 @@ const IniciarPartida = () => {
     } else if (suma < max) {
       setStatus("candidato");
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sum, max]);
 
   useEffect(() => {
