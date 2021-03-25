@@ -13,6 +13,7 @@ const IniciarPartida = () => {
   const arrayOfButtons = utils.Rango(1, 9);
   const [gameOver, setGameOver] = useState(false);
   const [gameWon, setGameWon] = useState(false);
+  const [usados, setUsados] = useState([]);
 
   const [timer, setTimer] = useState(15);
 
@@ -31,6 +32,9 @@ const IniciarPartida = () => {
       setStatus("malo");
     } else if (suma === max) {
       setStatus("usado");
+      setTimeout(() => nuevo(), 500);
+    } else if (suma < max) {
+      setStatus("candidato");
     }
   }, [sum, max]);
 
@@ -56,8 +60,10 @@ const IniciarPartida = () => {
         key={`number-${index}`}
         number={index}
         addNumber={addNumber}
+        eraseNumber={eraseNumber}
         status={status}
         selectedButtons={sum}
+        usados={usados}
       />
     );
   }
@@ -66,6 +72,34 @@ const IniciarPartida = () => {
     setSum((oldArray) => [...oldArray, number]);
   }
 
+  function eraseNumber(number) {
+    setSum(sum.filter((c) => c !== number));
+    console.log("borrando");
+  }
+
+  function nuevo() {
+    let arr = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+    for (let x = 0; x < sum.length; x++) {
+      usados.push(sum[x]);
+    }
+    for (let x = 0; x < usados.length; x++) {
+      arr = arr.filter((c) => c !== usados[x]);
+    }
+    const newRandom = utils.SumaAleatoria(arr, 9);
+    setMax(newRandom);
+    setSum([]);
+    if (usados.length === 9) {
+      setGameWon(true);
+    }
+  }
+
+  useEffect(() => {
+    setStars([]);
+    for (let x = 0; x < max; x++) {
+      setStars((oldArray) => [...oldArray, 1]);
+    }
+  }, [max]);
+
   return (
     <div className="game">
       <div className="help">
@@ -73,15 +107,15 @@ const IniciarPartida = () => {
       </div>
       <div className="body">
         <div className="left">
-          {!gameOver ? (
-            stars.map((star, index) => {
-              return renderStars(index);
-            })
-          ) : gameWon ? (
+          {gameWon ? (
             <h1 className="won-game">
               Bien! <br />
               <button onClick={() => restartGame()}>Jugar de nuevo</button>
             </h1>
+          ) : !gameOver ? (
+            stars.map((star, index) => {
+              return renderStars(index);
+            })
           ) : (
             <h1 className="game-over">
               Has perdido...{" "}

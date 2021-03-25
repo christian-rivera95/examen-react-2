@@ -1,19 +1,32 @@
 import React, { useState, useEffect } from "react";
 
 export default function NumberButton(props) {
-  const { number, addNumber, status, selectedButtons } = props;
+  const {
+    number,
+    addNumber,
+    status,
+    selectedButtons,
+    usados,
+    eraseNumber,
+  } = props;
   const [clicked, setClicked] = useState(false);
-  const [Class, setClass] = useState(status);
+  const [Class, setClass] = useState("number");
 
   useEffect(() => {
+    const usado = usados.find((element) => element === number);
+    if (number === usado) {
+      setClass("usado");
+    }
+
     const found = selectedButtons.find((element) => element === number);
     if (number === found) {
       setClass(status);
     }
-  }, [number, selectedButtons, status]);
+  }, [number, selectedButtons, status, Class]);
 
   useEffect(() => {
     const found = selectedButtons.find((element) => element === number);
+    console.log(found);
     if (clicked && found) {
       setClass("candidato");
     } else {
@@ -21,13 +34,18 @@ export default function NumberButton(props) {
     }
   }, [clicked, number, selectedButtons]);
 
-  useEffect(() => {
-    console.log(clicked);
-  }, [clicked]);
-
   function onClick() {
-    addNumber(number);
-    setClicked(!clicked);
+    if (Class !== "usado") {
+      addNumber(number);
+      setClicked(!clicked);
+    }
+
+    if (Class !== "number") {
+      setClass("number");
+    }
+    if (clicked && Class !== "usado") {
+      eraseNumber(number);
+    }
   }
 
   return (
