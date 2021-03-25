@@ -45,7 +45,7 @@ const IniciarPartida = () => {
       else setGameOver(true);
     }, 1000);
     return () => clearInterval(interval);
-  }, [timer]);
+  }, [gameWon, timer]);
 
   function renderStars(index) {
     return <Star key={`star-${index}`} />;
@@ -79,11 +79,11 @@ const IniciarPartida = () => {
 
   function nuevo() {
     let arr = utils.Rango(1, 9);
-    for (let x = 0; x < sum.length; x++) {
-      usados.push(sum[x]);
+    for (let index = 0; index < sum.length; index++) {
+      usados.push(sum[index]);
     }
-    for (let x = 0; x < usados.length; x++) {
-      arr = arr.filter((c) => c !== usados[x]);
+    for (let index = 0; index < usados.length; index++) {
+      arr = arr.filter((c) => c !== usados[index]);
     }
     const newRandom = utils.SumaAleatoria(arr, 9);
     setMax(newRandom);
