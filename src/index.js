@@ -41,7 +41,7 @@ const IniciarPartida = () => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      if (timer > 0) setTimer(timer - 1);
+      if (timer > 0 && !gameWon) setTimer(timer - 1);
       else setGameOver(true);
     }, 1000);
     return () => clearInterval(interval);
@@ -75,11 +75,10 @@ const IniciarPartida = () => {
 
   function eraseNumber(number) {
     setSum(sum.filter((c) => c !== number));
-    console.log("borrando");
   }
 
   function nuevo() {
-    let arr = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+    let arr = utils.Rango(1, 9);
     for (let x = 0; x < sum.length; x++) {
       usados.push(sum[x]);
     }

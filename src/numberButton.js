@@ -27,7 +27,6 @@ export default function NumberButton(props) {
 
   useEffect(() => {
     const found = selectedButtons.find((element) => element === number);
-    console.log(found);
     if (clicked && found) {
       setClass("candidato");
     } else {
